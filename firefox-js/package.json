@@ -6,7 +6,7 @@
   "description": "Save current playing song from pandora.com to a text file",
   "author": "Paco Hobi",
   "license": "MIT",
-  "version": "0.1",
+  "version": "0.1.0-alpha.1",
   "preferences": [{
       "name": "infoFormat",
       "title": "Format",

@@ -8,7 +8,7 @@ var worker;
 
 
 pageMod.PageMod({
-    include: "*.pandora.com",
+    include: ["*.pandora.com", "*.grooveshark.com"],
     contentScriptFile: self.data.url("script.js"),
     contentScriptWhen: "ready",
     onAttach: startListening
@@ -23,14 +23,20 @@ function startListening(w) {
 }
 
 function saveData(file, songInfo) {
-    let text = preferences.infoFormat;
-    text = text.replace("%song%", songInfo[0]);
-    text = text.replace("%artist%", songInfo[1]);
-    text = text.replace("%album%", songInfo[2]);
+    let song   = songInfo.length > 0 ? songInfo[0] : "";
+    let artist = songInfo.length > 1 ? songInfo[1] : "";
+    let album  = songInfo.length > 2 ? songInfo[2] : "";
 
-    let encoder = new TextEncoder();
-    let array = encoder.encode(text);
-    let promise = OS.File.writeAtomic(file, array);   
+    let text = preferences.infoFormat;
+    if (song.length != 0 || artist.length != 0 || album.length != 0) {
+        text = text.replace("%song%", songInfo[0]);
+        text = text.replace("%artist%", songInfo[1]);
+        text = text.replace("%album%", songInfo[2]);
+
+        let encoder = new TextEncoder();
+        let array = encoder.encode(text);
+        let promise = OS.File.writeAtomic(file, array);   
+    }
 }
 
 function saveDataIfValidFile(songInfo) {
