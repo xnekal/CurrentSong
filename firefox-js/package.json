@@ -1,0 +1,24 @@
+{
+  "name": "currentsong",
+  "title": "CurrentSong",
+  "id": "jid1-tXcW0tgdE3YBSQ",
+  "author": "Paco Hobi",
+  "description": "Save current playing song from pandora.com to a text file",
+  "author": "Paco Hobi",
+  "license": "MIT",
+  "version": "0.1",
+  "preferences": [{
+      "name": "infoFormat",
+      "title": "Format",
+      "description": "Format of the saved song information:\n\t%song% will be replaced by the song name\n\t%artist% will be replaced by the artist name\n\t%album% will be replaced by the album name",
+      "type": "string",
+      "value": "%song% by %artist% in %album%"
+  },
+  {
+      "name": "saveFile",
+      "title": "File",
+      "description": "Path of the file in which the song info will be saved",
+      "type": "string",
+      "value": "/Users/paco/Desktop/song.txt"
+  }]
+}
