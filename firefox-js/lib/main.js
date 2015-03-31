@@ -64,9 +64,9 @@ function saveData(songInfo) {
         // xml file
         text = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n" +
             "<event>\n" +
-                "    <song>" + song + "</song>\n" +
-                "    <artist>" + artist + "</artist>\n" +
-                "    <album>" + album + "</album>\n" +
+                "    <song>" + formatForXML(song) + "</song>\n" +
+                "    <artist>" + formatForXML(artist) + "</artist>\n" +
+                "    <album>" + formatForXML(album) + "</album>\n" +
             "</event>\n";
 
         encoder = new TextEncoder();
@@ -92,4 +92,11 @@ function notifySong(songInfo) {
 
 function endsWith(str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+
+function formatForXML(text) {
+    text = text.replace(/&/g, "&amp;")
+    text = text.replace(/</g, "&lt;")
+    text = text.replace(/>/g, "&gt;")
+    return text
 }
