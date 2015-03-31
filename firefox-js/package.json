@@ -6,8 +6,14 @@
   "description": "Writes the current playing song from popular music sites to a text file and a XML file",
   "author": "Paco Hobi",
   "license": "MIT",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "preferences": [{
+      "name": "saveFolder",
+      "title": "Folder",
+      "description": "Folder in which the song info will be saved",
+      "type": "directory"
+  },
+  {
       "name": "infoFormat",
       "title": "Format",
       "description": "Format of the saved song information:\n\t%song% will be replaced by the song name\n\t%artist% will be replaced by the artist name\n\t%album% will be replaced by the album name",
@@ -15,10 +21,17 @@
       "value": "%song% by %artist%"
   },
   {
-      "name": "saveFile",
-      "title": "File",
-      "description": "Path of the file in which the song info will be saved",
-      "type": "string",
-      "value": "/Users/paco/Desktop/song.txt"
+      "name": "interval",
+      "title": "Interval",
+      "description": "Time in seconds to wait between new song checks",
+      "type": "integer",
+      "value": 5
+  },
+  {
+      "name": "notify",
+      "title": "Notifications",
+      "description": "If enabled a notification will be shown when a new song starts",
+      "type": "bool",
+      "value": false
   }]
 }

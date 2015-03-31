@@ -53,6 +53,8 @@ songValue = null;
 artistValue = null;
 albumValue = null;
 
+interval = self.options.preferences.interval;
+interval = interval > 0 ? 1000*interval : 5000;
 window.setInterval(function(){
 	try {
 		var songInfo = getInfo();
@@ -65,7 +67,7 @@ window.setInterval(function(){
 			saveData();
 		}
 	} catch (err) {console.log("ERROR: "+err)}
-}, 5000);
+}, interval);
 
 function saveData() {
 	var songInfo = [songValue, artistValue, albumValue];

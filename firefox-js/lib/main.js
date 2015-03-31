@@ -4,6 +4,8 @@ const {TextDecoder, TextEncoder, OS} = Cu.import("resource://gre/modules/osfile.
 var pageMod = require("sdk/page-mod");
 var self = require("sdk/self");
 var preferences = require("sdk/simple-prefs").prefs;
+var notifications = require("sdk/notifications");
+
 var worker;
 
 
@@ -14,18 +16,36 @@ pageMod.PageMod({
         "*.play.spotify.com"],
     contentScriptFile: self.data.url("script.js"),
     contentScriptWhen: "ready",
-    onAttach: startListening
+    contentScriptOptions: {
+        preferences: preferences
+    },
+    onAttach: link
 });
 
-function startListening(w) {
+function link(w) {
     worker = w;
     worker.port.on("songUpdate", function(songInfo) {
         console.log("EVENT RECEIVED: songUpdate");
-        saveDataIfValidFile(songInfo);
+        saveData(songInfo);
+
+        if (preferences.notify) {
+            notifySong(songInfo);
+        }
     });
 }
 
-function saveData(file, songInfo) {
+function saveData(songInfo) {
+    // stop if preferences.saveFolder is not set
+    if (!preferences.saveFolder) {
+        worker.port.emit("alert", "CurrentSong error: 'Folder' option is not set.\n\n" +
+                                    "Go to the Add-ons Manager, find CurrentSong in the extensions list,\n" +
+                                    "click the Preferences button and set the 'Folder' option.");
+        return;
+    }
+
+    let textFile = preferences.saveFolder + "/song.txt";
+    let xmlFile = preferences.saveFolder + "/song.xml";
+
     let song   = songInfo[0] != null ? songInfo[0] : "";
     let artist = songInfo[1] != null ? songInfo[1] : "";
     let album  = songInfo[2] != null ? songInfo[2] : "";
@@ -39,7 +59,7 @@ function saveData(file, songInfo) {
 
         let encoder = new TextEncoder();
         let array = encoder.encode(text);
-        let promise = OS.File.writeAtomic(file, array);
+        let promise = OS.File.writeAtomic(textFile, array);
 
         // xml file
         text = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n" +
@@ -47,49 +67,27 @@ function saveData(file, songInfo) {
                 "    <song>" + song + "</song>\n" +
                 "    <artist>" + artist + "</artist>\n" +
                 "    <album>" + album + "</album>\n" +
-            "</event>";
+            "</event>\n";
 
-        file = file.slice(0, file.length - 4) + ".xml";
         encoder = new TextEncoder();
         array = encoder.encode(text);
-        promise = OS.File.writeAtomic(file, array);
+        promise = OS.File.writeAtomic(xmlFile, array);
     }
 }
 
-function saveDataIfValidFile(songInfo) {
-    let file = preferences.saveFile;
+function notifySong(songInfo) {
+    let song   = songInfo[0] != null ? songInfo[0] : "";
+    let artist = songInfo[1] != null ? songInfo[1] : "";
+    let album  = songInfo[2] != null ? songInfo[2] : "";
 
-    let promise = OS.File.stat(file);
-    promise = promise.then(
-        function onSuccess(stat) {
-            if (stat.isDir) {
-                // The path represents a directory
-                worker.port.emit("alert", "CurrentSong error:\nThe selected file is a directory.\n" + file);
-            } else {
-                // The path represents a file, not a directory
-                if (!file.endsWith(".txt")) {
-                    worker.port.emit("alert", "CurrentSong error:\nThe selected file must end in '.txt'.\n" + file);
-                } else {
-                    // All correct, save data
-                    saveData(file, songInfo);
-                }
-            }
-        },
-        function onFailure(reason) {
-            if (reason instanceof OS.File.Error && reason.becauseNoSuchFile) {
-                // The file does not exist
-                if (!file.endsWith(".txt")) {
-                    worker.port.emit("alert", "CurrentSong error:\nThe selected file must end in '.txt'.\n" + file);
-                } else {
-                    // All correct, save data
-                    saveData(file, songInfo);
-                }
-            } else {
-                // Some other error
-                worker.port.emit("alert", "CurrentSong error:\n" + reason);
-            }
-        }
-    );
+    let text = "";
+    if (artist.length > 0) text += "by " + artist + "\n";
+    if (album.length > 0) text += "in " + album;
+
+    notifications.notify({
+        title: song,
+        text: text
+    });
 }
 
 function endsWith(str, suffix) {
