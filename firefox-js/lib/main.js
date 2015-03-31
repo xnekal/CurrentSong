@@ -8,7 +8,10 @@ var worker;
 
 
 pageMod.PageMod({
-    include: ["*.pandora.com", "*.grooveshark.com"],
+    include: [
+        "*.pandora.com",
+        "*.grooveshark.com",
+        "*.play.spotify.com"],
     contentScriptFile: self.data.url("script.js"),
     contentScriptWhen: "ready",
     onAttach: startListening
@@ -23,19 +26,33 @@ function startListening(w) {
 }
 
 function saveData(file, songInfo) {
-    let song   = songInfo.length > 0 ? songInfo[0] : "";
-    let artist = songInfo.length > 1 ? songInfo[1] : "";
-    let album  = songInfo.length > 2 ? songInfo[2] : "";
+    let song   = songInfo[0] != null ? songInfo[0] : "";
+    let artist = songInfo[1] != null ? songInfo[1] : "";
+    let album  = songInfo[2] != null ? songInfo[2] : "";
 
     let text = preferences.infoFormat;
     if (song.length != 0 || artist.length != 0 || album.length != 0) {
-        text = text.replace("%song%", songInfo[0]);
-        text = text.replace("%artist%", songInfo[1]);
-        text = text.replace("%album%", songInfo[2]);
+        // text file
+        text = text.replace("%song%", song);
+        text = text.replace("%artist%", artist);
+        text = text.replace("%album%", album);
 
         let encoder = new TextEncoder();
         let array = encoder.encode(text);
-        let promise = OS.File.writeAtomic(file, array);   
+        let promise = OS.File.writeAtomic(file, array);
+
+        // xml file
+        text = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n" +
+            "<event>\n" +
+                "    <song>" + song + "</song>\n" +
+                "    <artist>" + artist + "</artist>\n" +
+                "    <album>" + album + "</album>\n" +
+            "</event>";
+
+        file = file.slice(0, file.length - 4) + ".xml";
+        encoder = new TextEncoder();
+        array = encoder.encode(text);
+        promise = OS.File.writeAtomic(file, array);
     }
 }
 
