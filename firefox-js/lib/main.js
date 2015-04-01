@@ -13,8 +13,8 @@ pageMod.PageMod({
     include: [
         "*.8tracks.com",
         "*.grooveshark.com",
-        "https://www.nightbot.tv/autodj",
         "*.retro.grooveshark.com",
+        "https://www.nightbot.tv/autodj",
         "*.pandora.com",
         /.*play\.google\.com\/music\/listen.*/,
         "*.play.spotify.com",
