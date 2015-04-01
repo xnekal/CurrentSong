@@ -8,9 +8,14 @@ CurrentSong works under Windows, Mac and Linux.
 
 Supported sites
 ---------------
++ [8tracks.com](http://8tracks.com)
 + [grooveshark.com](http://grooveshark.com)
++ [retro.grooveshark.com](http://retro.grooveshark.com)
++ [nightbot.tv](http://nightbot.tv/autodj)
 + [pandora.com](http://pandora.com)
++ [play.google.com](http://play.google.com/music)
 + [play.spotify.com](http://play.spotify.com)
++ [soundcloud.com](http://soundcloud.com)
 
 CurrentSong is in its early stages, support for more music sites will be added. If you want support for a specific site, please [contact me](mailto:hey@pacohobi.com).
 
