@@ -2,7 +2,6 @@ domain = document.domain;
 if (domain.slice(0, 4) == "www.") {
 	domain = domain.slice(4, domain.length);
 }
-console.log("DOAMAIN: " + domain);
 
 if (domain == "8tracks.com") {
 	getInfo = function() {
@@ -99,7 +98,7 @@ if (domain == "8tracks.com") {
 		return [song, artist, album];
 	}
 } else if (domain == "plug.dj") {
-	# TODO: getting banned?
+	// TODO: getting banned?
 	getInfo = function() {
 		var song, artist, album;
 		try {
