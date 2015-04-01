@@ -23,10 +23,10 @@ Installation
 5. Click Install now.
 6. **Important:** Set the folder where the song info will be saved ([configuration](#configuration)).
 
-You can download previous releases from [here](https://github.com/PacoHobi/CurrentSong/releases).
+You can download previous releases from [here](https://github.com/PacoHobi/CurrentSong/tags).
 
 #### Development version
-You can download the most up to date unpacked version (source code) clicking [here](https://github.com/PacoHobi/CurrentSong/archive/master.zip), you can also download the unpacked version of [previous releases](https://github.com/PacoHobi/CurrentSong/releases).
+You can download the most up to date unpacked version (source code) clicking [here](https://github.com/PacoHobi/CurrentSong/archive/master.zip), you can also download the unpacked version of [previous releases](https://github.com/PacoHobi/CurrentSong/tags).
 
 To be able to use the unpacked version you will need the [Mozilla Add-on SDK](https://developer.mozilla.org/en-US/Add-ons/SDK/Tutorials/Installation).
 
