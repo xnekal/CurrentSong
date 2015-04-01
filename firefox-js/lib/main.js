@@ -11,9 +11,15 @@ var worker;
 
 pageMod.PageMod({
     include: [
-        "*.pandora.com",
+        "*.8tracks.com",
         "*.grooveshark.com",
-        "*.play.spotify.com"],
+        "https://www.nightbot.tv/autodj",
+        "*.retro.grooveshark.com",
+        "*.pandora.com",
+        /.*play\.google\.com\/music\/listen.*/,
+        "*.play.spotify.com",
+        "*.plug.dj",
+        "*.soundcloud.com"],
     contentScriptFile: self.data.url("script.js"),
     contentScriptWhen: "ready",
     contentScriptOptions: {

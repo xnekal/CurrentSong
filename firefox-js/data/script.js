@@ -2,8 +2,57 @@ domain = document.domain;
 if (domain.slice(0, 4) == "www.") {
 	domain = domain.slice(4, domain.length);
 }
+console.log("DOAMAIN: " + domain);
 
-if (domain == "pandora.com") {
+if (domain == "8tracks.com") {
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementById("now_playing").getElementsByClassName("t")[0].firstChild.nodeValue;
+		} catch (err) { song = null; }
+		try {
+			artist = document.getElementById("now_playing").getElementsByClassName("a")[0].firstChild.nodeValue;
+		} catch (err) { artist = null; }
+		try {
+			album = document.getElementById("now_playing").getElementsByClassName("detail")[0].firstChild.nodeValue;
+		} catch (err) { artist = null; }
+		return [song, artist, album];
+	}
+} else if (domain == "grooveshark.com") {
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementById("now-playing-metadata").getElementsByClassName("song")[0].firstChild.nodeValue;
+		} catch (err) { song = null; }
+		try {
+			artist = document.getElementById("now-playing-metadata").getElementsByClassName("artist")[0].firstChild.nodeValue;
+		} catch (err) { artist = null; }
+		album = null; // TODO: get album
+		return [song, artist, album];
+	}
+} else if (domain == "retro.grooveshark.com") {
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementById("np-meta-container").getElementsByClassName("song")[0].firstChild.nodeValue;
+		} catch (err) { song = null; }
+		try {
+			artist = document.getElementById("np-meta-container").getElementsByClassName("artist")[0].firstChild.nodeValue;
+		} catch (err) { artist = null; }
+		album = null; // TODO: get album
+		return [song, artist, album];
+	}
+} else if (domain == "nightbot.tv") {
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementById("currentTitle").firstChild.nodeValue;
+		} catch (err) { song = null; }
+		artist = null;
+		album = null;
+		return [song, artist, album];
+	}
+} else if (domain == "pandora.com") {
 	getInfo = function() {
 		var song, artist, album;
 		try {
@@ -17,16 +66,18 @@ if (domain == "pandora.com") {
 		} catch (err) { album = null; }
 		return [song, artist, album];
 	}
-} else if (domain == "grooveshark.com") {
+} else if (domain == "play.google.com") {
 	getInfo = function() {
 		var song, artist, album;
 		try {
-			song = document.getElementById("now-playing-metadata").getElementsByClassName("song")[0].firstChild.nodeValue;
+			song = document.getElementById("playerSongTitle").firstChild.nodeValue;
 		} catch (err) { song = null; }
 		try {
-			artist = document.getElementById("now-playing-metadata").getElementsByClassName("artist")[0].firstChild.nodeValue;
+			artist = document.getElementById("player-artist").firstChild.nodeValue;
 		} catch (err) { artist = null; }
-		album = null; // TODO: get album name
+		try {
+			album = document.getElementsByClassName("player-artist-album-wrapper")[0].getElementsByClassName("player-album")[0].firstChild.nodeValue;
+		} catch (err) { album = null; }
 		return [song, artist, album];
 	}
 } else if (domain == "play.spotify.com") {
@@ -44,7 +95,31 @@ if (domain == "pandora.com") {
 			}
 			artist = artist.join(", ");
 		} catch (err) { artist = null; }
-		album = null; // TODO: get album name
+		album = null; // TODO: get album
+		return [song, artist, album];
+	}
+} else if (domain == "plug.dj") {
+	# TODO: getting banned?
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementById("now-playing-media").getElementsByClassName("bar-value")[0].childNodes[1].nodeValue;
+			song = song.slice(4, song.length);
+		} catch (err) { song = null; }
+		try {
+			artist = document.getElementById("now-playing-media").getElementsByClassName("author")[0].firstChild.nodeValue;
+		} catch (err) { artist = null; }
+		album = null; // TODO: get album
+		return [song, artist, album];
+	}
+} else if (domain == "soundcloud.com") {
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementsByClassName("playbackSoundBadge__title")[0].firstChild.nodeValue;
+		} catch (err) { song = null; }
+		artist = null; // TODO: get artist
+		album = null; // TODO: get album
 		return [song, artist, album];
 	}
 }
