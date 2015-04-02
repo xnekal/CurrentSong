@@ -62,10 +62,7 @@ function saveData(songInfo) {
         text = text.replace("%song%", song);
         text = text.replace("%artist%", artist);
         text = text.replace("%album%", album);
-
-        let encoder = new TextEncoder();
-        let array = encoder.encode(text);
-        let promise = OS.File.writeAtomic(textFile, array);
+        saveTextFile(textFile, text);
 
         // xml file
         text = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\n" +
@@ -74,11 +71,14 @@ function saveData(songInfo) {
                 "    <artist>" + formatForXML(artist) + "</artist>\n" +
                 "    <album>" + formatForXML(album) + "</album>\n" +
             "</event>\n";
-
-        encoder = new TextEncoder();
-        array = encoder.encode(text);
-        promise = OS.File.writeAtomic(xmlFile, array);
+        saveTextFile(xmlFile, text);
     }
+}
+
+function saveTextFile(fileName, text) {
+    let encoder = new TextEncoder();
+    let array = encoder.encode(text);
+    let promise = OS.File.writeAtomic(fileName, array);
 }
 
 function notifySong(songInfo) {

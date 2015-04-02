@@ -133,7 +133,6 @@ window.setInterval(function(){
 	try {
 		var songInfo = getInfo();
 		var newSong = songInfo[0], newArtist = songInfo[1], newAlbum = songInfo[2];
-		// var newSong = getSong(), newArtist = getArtist(), newAlbum = getAlbum();
 		if (newSong != songValue || newArtist != artistValue || newAlbum != albumValue) {
 			songValue = newSong;
 			artistValue = newArtist;
