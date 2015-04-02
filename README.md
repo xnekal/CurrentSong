@@ -22,11 +22,12 @@ CurrentSong is in its early stages, support for more music sites will be added. 
 Installation
 ------------
 1. Download CurrentSong latest packed version from [here](https://github.com/PacoHobi/CurrentSong/releases/latest) (the file with `.xpi` extension).
-2. Open Firefox and go to the Add-ons Manager (`Ctrl`+`Shift`+`A`).
-3. Click on the gear icon > Install Add-on From File...
-4. Brose to the Add-on file you downloaded in step 1 and click Open.
-5. Click Install now.
-6. **Important:** Set the folder where the song info will be saved ([configuration](#configuration)).
+2. If you are running Firefox a dialog should appear asking you to allow the installation, click on Allow and then on Install Now. If the dialog does not appear, follow this steps:
+  1. Open Firefox and go to the Add-ons Manager (`Ctrl`+`Shift`+`A`).
+  2. Click on the gear icon > Install Add-on From File...
+  3. Brose to the Add-on file you downloaded in step 1 and click Open.
+  4. Click Install Now.
+3. **Important:** Set the folder where the song info will be saved ([configuration](#configuration)).
 
 You can download previous releases from [here](https://github.com/PacoHobi/CurrentSong/tags).
 
