@@ -45,6 +45,17 @@ To open CurrentSong's configuration follow this steps:
 
 The text and XML files will be saved in _Folder_ with names `song.txt` and `song.xml`, respectively.
 
+Support/Contact
+---------------
+If you ...
+
+- Run into any problems installing/configuring CurrentSong
+- Encounter a bug where you think the extension isn't working correctly
+- Have any suggestions or comments
+- Or simply feel like saying hi
+
+Feel free to [shoot me an email](mailto:hey@pacohobi.com) or post on the [issues section](https://github.com/PacoHobi/CurrentSong/issues).
+
 License
 -------
 Released under the [MIT License](https://github.com/PacoHobi/CurrentSong/blob/master/LICENSE).
