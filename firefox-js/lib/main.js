@@ -19,7 +19,8 @@ pageMod.PageMod({
         /.*play\.google\.com\/music\/listen.*/,
         "*.play.spotify.com",
         "*.plug.dj",
-        "*.soundcloud.com"],
+        "*.soundcloud.com",
+        "*.youtube.com"],
     contentScriptFile: self.data.url("script.js"),
     contentScriptWhen: "ready",
     contentScriptOptions: {
@@ -31,11 +32,16 @@ pageMod.PageMod({
 function link(w) {
     worker = w;
     worker.port.on("songUpdate", function(songInfo) {
-        console.log("EVENT RECEIVED: songUpdate");
-        saveData(songInfo);
+        songInfo[0] = songInfo[0] != null ? songInfo[0].trim() : "";
+        songInfo[1] = songInfo[1] != null ? songInfo[1].trim() : "";
+        songInfo[2] = songInfo[2] != null ? songInfo[2].trim() : "";
 
-        if (preferences.notify) {
-            notifySong(songInfo);
+        if (songInfo[0].length > 0 || songInfo[1].length > 0 ||songInfo[2].length > 0) {
+            saveData(songInfo);
+
+            if (preferences.notify) {
+                notifySong(songInfo);
+            }
         }
     });
 }
@@ -52,9 +58,9 @@ function saveData(songInfo) {
     let textFile = preferences.saveFolder + "/song.txt";
     let xmlFile = preferences.saveFolder + "/song.xml";
 
-    let song   = songInfo[0] != null ? songInfo[0] : "";
-    let artist = songInfo[1] != null ? songInfo[1] : "";
-    let album  = songInfo[2] != null ? songInfo[2] : "";
+    let song   = songInfo[0];
+    let artist = songInfo[1];
+    let album  = songInfo[2];
 
     let text = preferences.infoFormat;
     if (song.length != 0 || artist.length != 0 || album.length != 0) {
@@ -82,9 +88,9 @@ function saveTextFile(fileName, text) {
 }
 
 function notifySong(songInfo) {
-    let song   = songInfo[0] != null ? songInfo[0] : "";
-    let artist = songInfo[1] != null ? songInfo[1] : "";
-    let album  = songInfo[2] != null ? songInfo[2] : "";
+    let song   = songInfo[0];
+    let artist = songInfo[1];
+    let album  = songInfo[2];
 
     let text = "";
     if (artist.length > 0) text += "by " + artist + "\n";

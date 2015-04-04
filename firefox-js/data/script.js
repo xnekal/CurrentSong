@@ -121,6 +121,16 @@ if (domain == "8tracks.com") {
 		album = null; // TODO: get album
 		return [song, artist, album];
 	}
+} else if (domain == "youtube.com") {
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementById("eow-title").firstChild.nodeValue;
+		} catch (err) { song = null; }
+		artist = null; // TODO: get artist
+		album = null; // TODO: get album
+		return [song, artist, album];
+	}
 }
 
 songValue = null;
@@ -139,7 +149,7 @@ window.setInterval(function(){
 			albumValue = newAlbum;
 			saveData();
 		}
-	} catch (err) {console.log("ERROR: "+err)}
+	} catch (err) {}
 }, interval);
 
 function saveData() {
