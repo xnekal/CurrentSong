@@ -41,6 +41,23 @@ if (domain == "8tracks.com") {
 		album = null; // TODO: get album
 		return [song, artist, album];
 	}
+} else if (domain == "iheart.com") {
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementsByClassName("player-song")[0].firstChild.nodeValue;
+			if (song.trim().length == 0 || song.slice(0,20) == "Thanks for listening") {
+				song = songValue;
+				artist = artistValue;
+			} else {
+				try {
+					artist = document.getElementsByClassName("player-artist")[0].firstChild.nodeValue;
+				} catch (err) { artist = null; }
+			}
+		} catch (err) { song = null; }
+		album = null; // TODO: get album
+		return [song, artist, album];
+	}
 } else if (domain == "nightbot.tv") {
 	getInfo = function() {
 		var song, artist, album;
@@ -111,6 +128,30 @@ if (domain == "8tracks.com") {
 		album = null; // TODO: get album
 		return [song, artist, album];
 	}
+} else if (domain == "rdio.com") {
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementsByClassName("song_title")[0].firstChild.nodeValue;
+		} catch (err) { song = null; }
+		try {
+			artist = document.getElementsByClassName("artist_title")[0].firstChild.nodeValue;
+		} catch (err) { artist = null; }
+		album = null; // TODO: get album
+		return [song, artist, album];
+	}
+} else if (domain == "songza.com") {
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementsByClassName("miniplayer-info-track-title")[0].firstChild.firstChild.nodeValue;
+		} catch (err) { song = null; }
+		try {
+			artist = document.getElementsByClassName("miniplayer-info-artist-name")[0].firstChild.firstChild.nodeValue.slice(3);
+		} catch (err) { artist = null; }
+		album = null; // TODO: get album
+		return [song, artist, album];
+	}
 } else if (domain == "soundcloud.com") {
 	getInfo = function() {
 		var song, artist, album;
@@ -118,6 +159,64 @@ if (domain == "8tracks.com") {
 			song = document.getElementsByClassName("playbackSoundBadge__title")[0].firstChild.nodeValue;
 		} catch (err) { song = null; }
 		artist = null; // TODO: get artist
+		album = null; // TODO: get album
+		return [song, artist, album];
+	}
+} else if (domain == "themusicninja.com") {
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementById("track_title").getElementsByClassName("title")[0].firstChild.nodeValue;
+		} catch (err) { song = null; }
+		try {
+			artist = document.getElementById("track_title").getElementsByClassName("artist")[0].firstChild.nodeValue;
+		} catch (err) { artist = null; }
+		album = null; // TODO: get album
+		return [song, artist, album];
+	}
+} else if (domain == "tunein.com") {
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementById("tuner").getElementsByClassName("line1")[0].firstChild.nodeValue;
+			if (song.slice(0,10) == "Loading..." || song.slice(0,10) == "Connecting" ||song.slice(0,4) == "Live") {
+				song = songValue;
+			}
+			try {
+				artist = document.getElementById("tuner").getElementsByClassName("line2")[0].firstChild.firstChild.nodeValue;
+			} catch (err) { artist = artistValue; }
+		} catch (err) {
+			try {
+				song = document.getElementById("tuner").getElementsByClassName("line1")[0].firstChild.firstChild.nodeValue;
+				if (song.slice(0,10) == "Loading..." || song.slice(0,10) == "Connecting" ||song.slice(0,4) == "Live") {
+					song = songValue;
+				}
+				try {
+					artist = document.getElementById("tuner").getElementsByClassName("line2")[0].firstChild.firstChild.nodeValue;
+				} catch (err) { artist = artistValue; }
+			} catch (err) { song = songValue; }
+		}
+		
+		album = null; // TODO: get album
+		return [song, artist, album];
+	}
+} else if (domain == "vk.com") {
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementById("ac_title").firstChild.nodeValue;
+		} catch (err) {
+			try {
+				song = document.getElementById("gp_title").firstChild.nodeValue;
+			} catch (err) { song = null; }
+		}
+		try {
+			artist = document.getElementById("ac_performer").firstChild.nodeValue;
+		} catch (err) {
+			try {
+				artist = document.getElementById("gp_performer").firstChild.nodeValue;
+			} catch (err) { artist = null; }
+		}
 		album = null; // TODO: get album
 		return [song, artist, album];
 	}
