@@ -158,7 +158,9 @@ if (domain == "8tracks.com") {
 		try {
 			song = document.getElementsByClassName("playbackSoundBadge__title")[0].firstChild.nodeValue;
 		} catch (err) { song = null; }
-		artist = null; // TODO: get artist
+		song = parseTrack(song);
+		artist = song[1];
+		song = song[0];
 		album = null; // TODO: get album
 		return [song, artist, album];
 	}
@@ -226,7 +228,9 @@ if (domain == "8tracks.com") {
 		try {
 			song = document.getElementById("eow-title").firstChild.nodeValue;
 		} catch (err) { song = null; }
-		artist = null; // TODO: get artist
+		song = parseTrack(song);
+		artist = song[1];
+		song = song[0];
 		album = null; // TODO: get album
 		return [song, artist, album];
 	}
@@ -259,3 +263,12 @@ function saveData() {
 self.port.on("alert", function(message) {
 	window.alert(message);
 });
+
+function parseTrack(track) {
+	if (self.options.preferences.parseTrack) {
+		if (track.indexOf(" - ") != -1) {
+			return track.split(" - ", 2).reverse();
+		}
+	}
+	return [track, null];
+}
