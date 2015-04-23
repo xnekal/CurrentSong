@@ -120,7 +120,7 @@ if (domain == "8tracks.com") {
 		var song, artist, album;
 		try {
 			song = document.getElementById("now-playing-media").getElementsByClassName("bar-value")[0].childNodes[1].nodeValue;
-			song = song.slice(4, song.length);
+			song = song.slice(3, song.length);
 		} catch (err) { song = null; }
 		try {
 			artist = document.getElementById("now-playing-media").getElementsByClassName("author")[0].firstChild.nodeValue;
