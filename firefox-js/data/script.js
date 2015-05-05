@@ -17,6 +17,19 @@ if (domain == "8tracks.com") {
 		} catch (err) { artist = null; }
 		return [song, artist, album];
 	}
+} else if (domain == "di.fm") {
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementsByClassName("track-name")[0].childNodes[2].nodeValue;
+		} catch (err) { song = null; }
+		try {
+			artist = document.getElementsByClassName("track-name")[0].childNodes[1].firstChild.nodeValue.trim();
+			artist = artist.slice(0, artist.length-2);
+		} catch (err) { artist = null; }
+		album = null; // TODO: get album
+		return [song, artist, album];
+	}
 } else if (domain == "grooveshark.com") {
 	getInfo = function() {
 		var song, artist, album;

@@ -12,6 +12,7 @@ var worker;
 pageMod.PageMod({
     include: [
         "*.8tracks.com",
+        "*.di.fm",
         "*.grooveshark.com",
         "*.retro.grooveshark.com",
         "*.iheart.com",
