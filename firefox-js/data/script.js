@@ -169,7 +169,7 @@ if (domain == "8tracks.com") {
 	getInfo = function() {
 		var song, artist, album;
 		try {
-			song = document.getElementsByClassName("playbackSoundBadge__title")[0].firstChild.nodeValue;
+			song = document.getElementsByClassName("playbackSoundBadge__title")[0].childNodes[2].firstChild.nodeValue;
 		} catch (err) { song = null; }
 		song = parseTrack(song);
 		artist = song[1];
