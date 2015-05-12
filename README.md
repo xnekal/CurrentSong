@@ -9,6 +9,7 @@ CurrentSong works under Windows, Mac and Linux.
 Supported sites
 ---------------
 + [8tracks.com](http://8tracks.com)
++ [di.fm](http://www.di.fm)
 + [grooveshark.com](http://grooveshark.com)
 + [retro.grooveshark.com](http://retro.grooveshark.com)
 + [iheart.com](http://iheart.com)
@@ -16,12 +17,13 @@ Supported sites
 + [pandora.com](http://pandora.com)
 + [play.google.com](http://play.google.com/music)
 + [play.spotify.com](http://play.spotify.com)
++ [plug.dj](https://plug.dj)
 + [rdio.com](http://rdio.com)
 + [songza.com](http://songza.com)
++ [soundcloud.com](http://soundcloud.com)
 + [themusicninja.com](http://themusicninja.com)
 + [tunein.com](http://tunein.com)
 + [vk.com](http://vk.com)
-+ [soundcloud.com](http://soundcloud.com)
 + [youtube.com](http://youtube.com)
 
 CurrentSong is in its early stages, support for more music sites will be added. If you want support for a specific site, please [contact me](mailto:hey@pacohobi.com).
