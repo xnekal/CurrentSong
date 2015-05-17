@@ -235,6 +235,18 @@ if (domain == "8tracks.com") {
 		album = null; // TODO: get album
 		return [song, artist, album];
 	}
+} else if (domain == "music.xbox.com") {
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementsByClassName("playerNowPlayingMetadata")[1].getElementsByClassName("primaryMetadata")[0].children[0].firstChild.nodeValue;
+		} catch (err) { song = null; }
+		try {
+			artist = document.getElementsByClassName("playerNowPlayingMetadata")[1].getElementsByClassName("secondaryMetadata")[0].children[0].firstChild.nodeValue;
+		} catch (err) { artist = null; }
+		album = null; // TODO: get album
+		return [song, artist, album];
+	}
 } else if (domain == "youtube.com") {
 	getInfo = function() {
 		var song, artist, album;
