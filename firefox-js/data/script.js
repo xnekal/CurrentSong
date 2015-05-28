@@ -17,6 +17,18 @@ if (domain == "8tracks.com") {
 		} catch (err) { artist = null; }
 		return [song, artist, album];
 	}
+} else if (domain == "listen.beatsmusic.com") {
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementsByClassName("track")[0].firstChild.nodeValue;
+		} catch (err) { song = null; }
+		try {
+			artist = document.getElementsByClassName("artist")[0].firstChild.nodeValue;
+		} catch (err) { artist = null; }
+		album = null; // TODO: get album
+		return [song, artist, album];
+	}
 } else if (domain == "di.fm") {
 	getInfo = function() {
 		var song, artist, album;
