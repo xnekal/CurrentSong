@@ -29,6 +29,18 @@ if (domain == "8tracks.com") {
 		album = null; // TODO: get album
 		return [song, artist, album];
 	}
+} else if (domain == "deezer.com") {
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementsByClassName("player-track-link")[0].firstChild.nodeValue;
+		} catch (err) { song = null; }
+		try {
+			artist = document.getElementsByClassName("player-track-link")[1].firstChild.nodeValue;
+		} catch (err) { artist = null; }
+		album = null; // TODO: get album
+		return [song, artist, album];
+	}
 } else if (domain == "di.fm") {
 	getInfo = function() {
 		var song, artist, album;
@@ -121,7 +133,7 @@ if (domain == "8tracks.com") {
 		} catch (err) { album = null; }
 		return [song, artist, album];
 	}
-} else if (domain == "play.spotify.com") {
+} else if (domain == "play.spotify.com" || domain == "player.spotify.com") {
 	getInfo = function() {
 		var song, artist = [], album;
 		try {

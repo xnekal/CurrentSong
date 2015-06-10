@@ -13,6 +13,7 @@ pageMod.PageMod({
     include: [
         "*.8tracks.com",
         "*.listen.beatsmusic.com",
+        "*.deezer.com",
         "*.di.fm",
         "*.grooveshark.com",
         "*.retro.grooveshark.com",
@@ -21,6 +22,7 @@ pageMod.PageMod({
         "*.pandora.com",
         /.*play\.google\.com\/music\/listen.*/,
         "*.play.spotify.com",
+        "*.player.spotify.com",
         "*.plug.dj",
         "*.rdio.com",
         "*.songza.com",
