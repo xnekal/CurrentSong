@@ -9,6 +9,7 @@ CurrentSong works under Windows, Mac and Linux.
 Supported sites
 ---------------
 + [8tracks.com](http://8tracks.com)
++ [listen.beatsmusic.com](http://listen.beatsmusic.com)
 + [di.fm](http://www.di.fm)
 + [grooveshark.com](http://grooveshark.com)
 + [retro.grooveshark.com](http://retro.grooveshark.com)
