@@ -10,6 +10,7 @@ Supported sites
 ---------------
 + [8tracks.com](http://8tracks.com)
 + [listen.beatsmusic.com](http://listen.beatsmusic.com)
++ [deezer.com](http://www.deezer.com/)
 + [di.fm](http://www.di.fm)
 + [grooveshark.com](http://grooveshark.com)
 + [retro.grooveshark.com](http://retro.grooveshark.com)
