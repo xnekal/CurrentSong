@@ -6,7 +6,7 @@
   "description": "Writes the current playing song from popular music sites to a text file and a XML file",
   "author": "Paco Hobi",
   "license": "MIT",
-  "version": "0.2.7",
+  "version": "1.0.0",
   "icon": "icon.png",
   "icon64": "icon64.png",
   "preferences": [{
@@ -21,6 +21,13 @@
       "description": "Format of the saved song information:\n\t%song% will be replaced by the song name\n\t%artist% will be replaced by the artist name\n\t%album% will be replaced by the album name",
       "type": "string",
       "value": "%song% by %artist%"
+  },
+  {
+      "name": "saveArtwork",
+      "title": "Save artwork",
+      "description": "If enabled the song artwork will be downloaded to 'song.jpg' (when available)",
+      "type": "bool",
+      "value": true
   },
   {
       "name": "interval",

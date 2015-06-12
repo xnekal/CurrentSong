@@ -1,6 +1,10 @@
 const {Cu} = require("chrome");
 const {TextDecoder, TextEncoder, OS} = Cu.import("resource://gre/modules/osfile.jsm", {});
 
+Cu.import("resource://gre/modules/Downloads.jsm");
+Cu.import("resource://gre/modules/osfile.jsm");
+Cu.import("resource://gre/modules/Task.jsm");
+
 var pageMod = require("sdk/page-mod");
 var self = require("sdk/self");
 var preferences = require("sdk/simple-prefs").prefs;
@@ -46,6 +50,7 @@ function link(w) {
         songInfo[0] = songInfo[0] != null ? songInfo[0].trim() : "";
         songInfo[1] = songInfo[1] != null ? songInfo[1].trim() : "";
         songInfo[2] = songInfo[2] != null ? songInfo[2].trim() : "";
+        songInfo[3] = songInfo[3] != null ? songInfo[3].trim() : "";
 
         if (songInfo[0].length > 0 || songInfo[1].length > 0 ||songInfo[2].length > 0) {
             saveData(songInfo);
@@ -53,6 +58,12 @@ function link(w) {
             if (preferences.notify) {
                 notifySong(songInfo);
             }
+        }
+    });
+    worker.port.on("artworkUpdate", function(artworkURL) {
+        if (preferences.saveArtwork) {
+            artworkURL = artworkURL != null ? artworkURL.trim() : "";
+            saveArtWork(artworkURL);
         }
     });
 }
@@ -66,8 +77,8 @@ function saveData(songInfo) {
         return;
     }
 
-    let textFile = preferences.saveFolder + "/song.txt";
-    let xmlFile = preferences.saveFolder + "/song.xml";
+    let textFile = OS.Path.join(preferences.saveFolder, "song.txt");
+    let xmlFile  = OS.Path.join(preferences.saveFolder, "song.xml");
 
     let song   = songInfo[0];
     let artist = songInfo[1];
@@ -89,13 +100,29 @@ function saveData(songInfo) {
                 "    <album>" + formatForXML(album) + "</album>\n" +
             "</event>\n";
         saveTextFile(xmlFile, text);
+
     }
+}
+
+function saveArtWork(url) {
+    let artFile  = OS.Path.join(preferences.saveFolder, "song.jpg");
+    if (url.length == 0) {
+        url = "http://pacohobi.com/currentsong/artworkw.jpg";
+    }
+    console.log("URLURLURLURLURLURLURLURLURLURLURL: " + url);
+    downloadFile(artFile, url);
 }
 
 function saveTextFile(fileName, text) {
     let encoder = new TextEncoder();
     let array = encoder.encode(text);
     let promise = OS.File.writeAtomic(fileName, array);
+}
+
+function downloadFile(fileName, url) {
+    Task.spawn(function () {
+        yield Downloads.fetch(url, fileName);
+    }).then(null, Cu.reportError);
 }
 
 function notifySong(songInfo) {
