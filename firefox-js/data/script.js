@@ -155,7 +155,7 @@ if (domain == "8tracks.com") {
 		} catch (err) { artwork = null; }
 		return [song, artist, album, artwork];
 	}
-} else if (domain == "play.spotify.com" || domain == "player.spotify.com") {
+} else if (domain == "play.spotify.com") {
 	getInfo = function() {
 		var song, artist = [], album;
 		try {
@@ -173,6 +173,21 @@ if (domain == "8tracks.com") {
 		album = null; // TODO: get album
 		try {
 			artwork = document.getElementById("app-player").contentWindow.document.getElementsByClassName("sp-image-img")[0].style.backgroundImage.slice(5, -2);
+		} catch (err) { artwork = null; }
+		return [song, artist, album, artwork];
+	}
+} else if (domain == "player.spotify.com") {
+	getInfo = function() {
+		var song, artist, album;
+		try {
+			song = document.getElementById("main").contentWindow.document.getElementById("miniplayer").getElementsByClassName("title")[0].textContent;
+		} catch (err) { song = null; }
+		try {
+			artist = document.getElementById("main").contentWindow.document.getElementById("miniplayer").getElementsByClassName("artist")[0].textContent;
+		} catch (err) { artist = null; }
+		album = null; // TODO: get album
+		try {
+			artwork = document.getElementById("main").contentWindow.document.getElementById("miniplayer").getElementsByTagName("figure")[0].style.backgroundImage.slice(5, -2);
 		} catch (err) { artwork = null; }
 		return [song, artist, album, artwork];
 	}

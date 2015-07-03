@@ -19,6 +19,7 @@ Supported sites
 + [pandora.com](http://pandora.com)
 + [play.google.com](http://play.google.com/music)
 + [play.spotify.com](http://play.spotify.com)
++ [player.spotify.com](http://player.spotify.com)
 + [plug.dj](https://plug.dj)
 + [rdio.com](http://rdio.com)
 + [songza.com](http://songza.com)
